@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeoI Hong - AI Researcher Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-light: #f8f9fa;
+            --text-main: #333;
+            --text-light: #666;
+        }
+
+        body {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        /* 레이아웃 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 헤더 섹션 */
+        header {
+            background: linear-gradient(to right, #2c3e50, #4ca1af);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid white;
+            object-fit: cover;
+            margin-bottom: 20px;
+            background-color: #ddd;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .social-links a:hover {
+            opacity: 0.7;
+        }
+
+        /* 네비게이션 (Sticky) */
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 0;
+            padding: 15px 0;
+        }
+
+        nav li {
+            margin: 0 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* 섹션 공통 */
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+            margin: 10px auto 0;
+        }
+
+        /* About 섹션 */
+        .about-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Research Interests */
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .interest-card {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .interest-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .interest-card i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Publications / Projects */
+        .paper-item {
+            margin-bottom: 30px;
+        }
+
+        .paper-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .paper-authors {
+            color: var(--text-light);
+            font-style: italic;
+            margin: 5px 0;
+        }
+
+        .paper-venue {
+            display: inline-block;
+            background: #e1f0fa;
+            color: #2980b9;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .patent-label {
+             background: #e8f5e9;
+             color: #2e7d32;
+        }
+
+        /* Experience */
+        .experience-item {
+            margin-bottom: 30px;
+        }
+        .experience-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        .experience-role {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        .experience-date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        /* Education */
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            border-left: 3px solid var(--secondary-color);
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 25px;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border: 3px solid var(--secondary-color);
+            border-radius: 50%;
+        }
+
+        .timeline-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .timeline-degree {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+
+        .timeline-school {
+            color: var(--primary-color);
+        }
+
+        /* Skills */
+        .skills-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .skill-category {
+            margin-bottom: 20px;
+        }
+        .skill-category h3 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-tag {
+            background: #f1f2f6;
+            color: #333;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav li {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 -->
+    <header>
+        <div class="container">
+            <!-- 프로필 이미지 (placeholder url 사용) -->
+            <h1>홍서이 (SeoI Hong)</h1>
+            <p>M.S. Student in Artificial Intelligence @ Dongguk University</p>
+            <p style="font-size: 1rem; margin-top: 5px;">LLM / RAG / Multimodal AI Researcher</p>
+            
+            <div class="social-links">
+                <a href="mailto:hongchaenui@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/hongseoi" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://itmaster98.tistory.com" target="_blank" title="Blog"><i class="fas fa-blog"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 네비게이션 -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#interests">Interests</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+        </ul>
+    </nav>
+
+    <!-- About 섹션 -->
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <p>
+                    안녕하세요! 저는 <strong>동국대학교 인공지능학과 석사 과정</strong> 홍서이입니다.<br>
+                    데이터를 통해 가치를 창출하고, 인공지능과 실생활을 밀접하게 연결하는 데에 관심이 있습니다. <br>
+
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Interests -->
+    <section id="interests">
+        <div class="container">
+            <h2>Research Interests</h2>
+            <div class="interests-grid">
+                <div class="interest-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>NLP & LLM</h3>
+                    <p>Large Language Models, RAG, Dialogue Systems</p>
+                </div>
+                <div class="interest-card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Multimodal AI</h3>
+                    <p>Vision-Language Models, Image Stitching, Object Detection</p>
+                </div>
+                <div class="interest-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Machine Learning</h3>
+                    <p>Data Analysis, Predictive Modeling, Medical AI</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Experience Section -->
+     <section id="experience">
+        <div class="container">
+            <h2>Research & Professional Experience</h2>
+            
+            <div class="experience-item">
+                <div class="experience-title">Aram Huvis (Industry-Academic Cooperation)</div>
+                <div class="experience-role">Researcher</div>
+                <div class="experience-date">July 2025 – Present</div>
+                <ul>
+                    <li>Project: Automated Scalp Image Stitching Solution</li>
+                    <li>불연속적인 고배율 두피 이미지의 자동 스티칭 알고리즘 개발</li>
+                    <li>곡면 두피 표면으로 인한 왜곡 보정을 위한 기하학적 변환 파이프라인 구현</li>
+                    <li>비정형 생체 이미지 정합 정확도 최적화 및 핵심 기술 특허 출원</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-title">Hubet Bio (Industry-Academic Cooperation)</div>
+                <div class="experience-role">Research Intern & Researcher</div>
+                <div class="experience-date">Nov. 2023 – Sep. 2025</div>
+                <ul>
+                    <li>Project: Machine Learning-based Early Diagnosis of Pancreatic Cancer</li>
+                    <li>mRNA 바이오마커 데이터 분석 및 진단 패널 개발</li>
+                    <li>5가지 ML 알고리즘 적용 및 최적 바이오마커/모델 선정</li>
+                    <li>CA19-9 수치가 정상인 환자군에서 AUC 0.967 달성 (조기 진단율 대폭 향상)</li>
+                </ul>
+            </div>
+            
+             <div class="experience-item">
+                <div class="experience-title">Dongguk University</div>
+                <div class="experience-role">Teaching Assistant (Machine Learning) / Research Assistant</div>
+                <div class="experience-date">Oct. 2023 – June 2025</div>
+                <ul>
+                    <li>학부생 머신러닝 프로젝트 멘토링 및 Python 실습 지도</li>
+                    <li>노인 음성 데이터 증강(Augmentation) 기법 연구 및 STT 모델(Whisper 등) 파인튜닝</li>
+                    <li>1960~2020년대 정부 예산 보고서 분석 및 시계열 데이터셋 구축 (장기 예산 예측 프로젝트)</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications">
+        <div class="container">
+            <h2>Publications & Patents</h2>
+            
+            <!-- 논문 1 -->
+            <div class="paper-item">
+                <div class="paper-title">[SCIE] Novel mRNA biomarker-based liquid biopsy for the detection of resectable pancreatic cancer</div>
+                <div class="paper-authors">Lee, J., ..., <strong>Hong</strong>, et al.</div>
+                <span class="paper-venue">BMC Cancer. Vol. 25, Article 762 (Apr. 2025)</span>
+                <p>Achieved AUC 0.968 in diagnosing resectable pancreatic cancer, outperforming CA19-9.</p>
+            </div>
+
+            <!-- 논문 2 -->
+            <div class="paper-item">
+                <div class="paper-title">[Submitted] FCCR: Fine-grained Cultural Caption Refinement for Vision-Language Models</div>
+                <div class="paper-authors"><strong>Hong</strong> et al.</div>
+                <span class="paper-venue">Submitted to PeerJ Computer Science</span>
+                <p>Proposed a self-refinement pipeline to enhance cultural context understanding in VLMs (CAS +0.359).</p>
+            </div>
+
+             <!-- 특허 -->
+             <div class="paper-item">
+                <div class="paper-title">Method for Stitching Scalp Images using Non-linear Transformation</div>
+                <span class="paper-venue patent-label">KR Patent (Pending)</span>
+            </div>
+            <div class="paper-item">
+                <div class="paper-title">Pancreatic Cancer Diagnosis Method using Multi-marker Panel</div>
+                <span class="paper-venue patent-label">KR Patent (Pending)</span>
+            </div>
+            <div class="paper-item">
+                <div class="paper-title">Plant Growth Management System based on Image Analysis</div>
+                <span class="paper-venue patent-label">KR Patent (Registered)</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+        <div class="container">
+            <h2>Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Mar. 2024 – Present</div>
+                    <div class="timeline-degree">M.S. in Artificial Intelligence</div>
+                    <div class="timeline-school">Dongguk University, Seoul, Korea</div>
+                </div>
+                 <div class="timeline-item">
+                    <div class="timeline-date">Aug. 2024 – Dec. 2024</div>
+                    <div class="timeline-degree">Visiting Scholar, Robotics Institute</div>
+                    <div class="timeline-school">Carnegie Mellon University, Pittsburgh, USA</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Mar. 2016 – Feb. 2024</div>
+                    <div class="timeline-degree">B.A. in Public Administration & B.S. in Software Convergence</div>
+                    <div class="timeline-school">Dongguk University, Seoul, Korea</div>
+                </div>
+                 <div class="timeline-item">
+                    <div class="timeline-date">Mar. 2013 – Feb. 2016</div>
+                    <div class="timeline-degree">High School Diploma</div>
+                    <div class="timeline-school">Chungnam Foreign Language High School, Asan, Korea</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+        <div class="container">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Python (Expert)</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">Korean (Native)</span>
+                        <span class="skill-tag">English (Proficient)</span>
+                        <span class="skill-tag">Japanese (Conversational)</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>AI / ML Frameworks</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">Keras</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">Hugging Face</span>
+                        <span class="skill-tag">OpenCV</span>
+                    </div>
+                </div>
+                 <div class="skill-category">
+                    <h3>Tools & Infrastructure</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">AWS (EC2)</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">LaTeX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards -->
+    <section id="awards">
+        <div class="container">
+            <h2>Awards & Certificates</h2>
+            <ul>
+                <li>Excellence Award, Big Data-based Alley Economy Revitalization Project</li>
+                <li>Excellence Award, Winter ICIP & Capstone Design Competition</li>
+                <li>ADsP (Advanced Data Analytics Semi-Professional), KOREA Data Agency</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 SeoI Hong. All Rights Reserved.</p>
+            <p>Powered by HTML5 & CSS3</p>
+        </div>
+    </footer>
+
+</body>
+</html>
